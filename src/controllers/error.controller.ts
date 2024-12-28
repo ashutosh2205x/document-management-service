@@ -2,10 +2,14 @@ import AppError from "../utils/errors/app.error";
 
 const handleZodError = (err: any) => {
   const errors = Object.values(err.errors).map((el: any) => el.message);
-  const message = `Invalid input data. ${errors.join(". ")}`;
-  return new AppError(message, 400);
+  // const message = `Invalid input data. ${errors.join(". ")}`;
+  return new AppError("Invalid input data", 400);
 };
 
+const handleSequelizeUniqueConstraintError = (err: any) => {
+  const message = err.message;
+  return new AppError(message, 400);
+};
 const sendErrorDev = async (err, req, res) => {
   if (process.env.NODE_ENV === "development") {
     return res.status(err.statusCode).json({
@@ -56,6 +60,7 @@ export default function globalErrorHandler(err: { name: any; statusCode: number;
     error.message = err.message;
 
     if (error.name === "ZodError") error = handleZodError(error);
+    if (error.name == "SequelizeUniqueConstraintError") error = handleSequelizeUniqueConstraintError(error);
     sendErrorProd(error, req, res);
   }
 }
