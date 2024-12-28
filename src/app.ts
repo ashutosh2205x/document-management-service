@@ -37,11 +37,7 @@ app.get("/", (req, res) => {
 });
 app.use(globalErrorHandler);
 
-// app.listen(process.env.PORT, () => {
-//   console.log(`Server running on port ${process.env.PORT}`);
-// });
-
-sequelize.sync().then(() => {
+sequelize.sync().then(async () => {
   app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT}`);
   });
