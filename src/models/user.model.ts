@@ -1,8 +1,12 @@
 import sequelize from "../configs/db";
-
-const { DataTypes } = require("sequelize");
+import { DataTypes } from "sequelize";
 
 export const User = sequelize.define("User", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -13,8 +17,7 @@ export const User = sequelize.define("User", {
     allowNull: false,
   },
   role: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.ENUM("admin", "editor", "viewer"),
     defaultValue: "viewer",
   },
 });
