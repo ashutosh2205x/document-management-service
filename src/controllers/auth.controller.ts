@@ -17,15 +17,17 @@ export const login = catchAsync(async (req: Request, res: Response, next: NextFu
   const { email, password } = req.body;
   IUserSchema.parse(req.body);
   const isUser = await User.findOne({ where: { email: email } });
+  console.log();
   if (!isUser || !isUser?.dataValues) {
     return res.status(401).json({
       success: false,
-      message: "Incorrect email or password",
+      message: "User not found",
     });
   }
   if (bcrypt.compareSync(password, isUser.dataValues.password)) {
-    let token = jwt.sign({ email }, process.env.JWT_SECRET);
-    res.json({ data: isUser.dataValues, token });
+    const { id, role } = isUser.dataValues;
+    const token = jwt.sign({ email, id, role }, process.env.JWT_SECRET!, { expiresIn: "24h" });
+    res.json({ token });
   } else {
     res.json({ error: "incorrect password" });
   }
