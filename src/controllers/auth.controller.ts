@@ -17,7 +17,6 @@ export const login = catchAsync(async (req: Request, res: Response, next: NextFu
   const { email, password } = req.body;
   IUserSchema.parse(req.body);
   const isUser = await User.findOne({ where: { email: email } });
-  console.log();
   if (!isUser || !isUser?.dataValues) {
     return res.status(401).json({
       success: false,
