@@ -12,6 +12,7 @@ import { authRoutes } from "./routes/auth.routes";
 import { documentRoutes } from "./routes/document.routes";
 import { userRoutes } from "./routes/user.routes";
 import { ingestionRoutes } from "./routes/ingestion.routes";
+import { setupSwagger } from "./configs/swagger";
 
 const app = express();
 
@@ -37,9 +38,7 @@ app.use("/api/documents", documentRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/ingestion", ingestionRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+setupSwagger(app);
 app.use(globalErrorHandler);
 
 sequelize.sync().then(async () => {
