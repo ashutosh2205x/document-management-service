@@ -21,3 +21,10 @@ export const User = sequelize.define("User", {
     defaultValue: "viewer",
   },
 });
+
+export const BlacklistedTokens = sequelize.define("blacklisted_tokens", {
+  token: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
