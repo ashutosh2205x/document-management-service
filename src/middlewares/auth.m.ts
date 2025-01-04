@@ -12,7 +12,10 @@ declare global {
 }
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization?.split(" ")[1];
-  if (!token) res.status(403).json({ error: "Unauthenticated" });
+  if (!token) {
+    res.status(403).json({ error: "Unauthenticated" });
+    return;
+  }
 
   jwt.verify(token, process.env.JWT_SECRET, (err: any, user: any) => {
     if (err) return res.status(403).send("Invalid token");
