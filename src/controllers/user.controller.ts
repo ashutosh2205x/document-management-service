@@ -11,6 +11,6 @@ export const updateUserRole = catchAsync(async (req: Request, res: Response) => 
   if (!ROLES.includes(role)) {
     return res.status(403).json({ error: "invalid role" });
   }
-  const result = await User.update({ role }, { where: { id: userId } });
+  await User.update({ role }, { where: { id: userId } });
   res.json({ message: "role updated succesfully" });
 });
