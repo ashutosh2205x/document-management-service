@@ -20,7 +20,7 @@ const router = express.Router();
  *     tags: [Ingestion]
  *     responses:
  *       201:
- *         description: Ingestion triggered successfully
+ *         message: Ingestion triggered successfully
  */
 router.post("/trigger", [authenticate], triggerIngestion);
 

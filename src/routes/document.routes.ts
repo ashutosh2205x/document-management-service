@@ -31,7 +31,7 @@ const router = express.Router();
  *                 description: The file to upload
  *     responses:
  *       201:
- *         description: Document created successfully
+ *         message: Document created successfully
  */
 router.post("/", [authenticate, permissionMiddleware(["create"]), upload.single("file")], uploadDocument);
 
@@ -43,7 +43,7 @@ router.post("/", [authenticate, permissionMiddleware(["create"]), upload.single(
  *     tags: [Documents]
  *     responses:
  *       200:
- *         description: List of documents
+ *         message : List of documents
  *         content:
  *           application/json:
  *             schema:
@@ -74,11 +74,11 @@ router.get("/", [authenticate, permissionMiddleware(["read"])], getUserDocuments
  *         description: Document ID
  *     responses:
  *       200:
- *         description: Document deleted successfully
+ *         message: Document deleted successfully
  *       404:
  *         error: Document not found
  *       500:
- *         description: Error deleting file
+ *         error: Error deleting file
  */
 router.delete("/:documentId", [authenticate, permissionMiddleware(["delete"])], deleteDocument);
 
@@ -101,13 +101,13 @@ router.delete("/:documentId", [authenticate, permissionMiddleware(["delete"])], 
 //  *                 description: The file to upload
 //  *     responses:
 //  *       200:
-//  *         description: Document deleted successfully
+//  *         message: Document deleted successfully
 //  *       400:
 //  *         error: No file uploaded
 //  *       404:
 //  *         error: Document is missing / Document not found
 //  *       500:
-//  *         description: Error deleting file
+//  *         error: Error deleting file
 //  */
 
 /**
@@ -129,7 +129,7 @@ router.delete("/:documentId", [authenticate, permissionMiddleware(["delete"])], 
  *                 description: The file to upload
  *     responses:
  *       200:
- *         description: Document updated successfully
+ *         message: Document updated successfully
  */
 router.put("/:documentId", [authenticate, permissionMiddleware(["update"]), upload.single("file")], updateDocument);
 

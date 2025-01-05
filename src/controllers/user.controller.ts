@@ -33,5 +33,5 @@ export const updateUserPermissions = catchAsync(async (req: Request, res: Respon
   }
   let sanitized = sanitizeArrayElements(permissions);
   await User.update({ permissions: sanitized.join(",") }, { where: { id: userId } });
-  res.json({ message: "role updated succesfully" });
+  res.json({ message: "permissions updated succesfully" });
 });

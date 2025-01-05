@@ -29,9 +29,9 @@ const router = express.Router();
  *                 type: string
  *     responses:
  *       201:
- *         description: User registered successfully
+ *         message: User registered successfully
  *       400:
- *         description: Bad request
+ *         error : Bad request
  */
 router.post("/signup", signup);
 
@@ -54,9 +54,9 @@ router.post("/signup", signup);
  *                 type: string
  *     responses:
  *       200:
- *         description: Login successful
+ *         message: Login successful
  *       401:
- *         description: Invalid credentials
+ *         error: Invalid credentials
  */
 router.post("/login", login);
 
@@ -70,7 +70,7 @@ router.post("/login", login);
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: Logout successful
+ *         message: Logout successful
  */
 router.post("/logout", logout);
 
