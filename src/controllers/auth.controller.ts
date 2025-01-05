@@ -1,15 +1,14 @@
-import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { BlacklistedTokens, User } from "../models/user.model";
 import { catchAsync } from "../utils/catchAsync";
 import { IUserSchema } from "../utils/schema-validator/user.schema";
-import db from "../configs/db";
 
 export const signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { email, password, role } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = await User.create({ email, password: hashedPassword, role: role || "viewer" });
+ await User.create({ email, password: hashedPassword, role: role || "viewer" });
   res.status(201).json({ email: email, message: "user created succesfully" });
 });
 
@@ -24,8 +23,8 @@ export const login = catchAsync(async (req: Request, res: Response, next: NextFu
     });
   }
   if (bcrypt.compareSync(password, isUser.dataValues.password)) {
-    const { id, role } = isUser.dataValues;
-    const token = jwt.sign({ email, id, role }, process.env.JWT_SECRET!, { expiresIn: "24h" });
+    const { id, role, permissions } = isUser.dataValues;
+    const token = jwt.sign({ email, id, role, permissions }, process.env.JWT_SECRET!, { expiresIn: "24h" });
     res.json({ token });
   } else {
     res.json({ error: "incorrect password" });
