@@ -20,6 +20,10 @@ export const User = sequelize.define("User", {
     type: DataTypes.ENUM("admin", "editor", "viewer"),
     defaultValue: "viewer",
   },
+  permissions: {
+    type: DataTypes.ENUM("create, read, update, delete"),
+    defaultValue: "read",
+  },
 });
 
 export const BlacklistedTokens = sequelize.define("blacklisted_tokens", {
