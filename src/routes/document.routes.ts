@@ -2,6 +2,7 @@ import express from "express";
 import { authenticate } from "../middlewares/auth.m";
 import { uploadDocument, getUserDocuments, deleteDocument, updateDocument } from "../controllers/document.controller";
 import { upload } from "../utils/fileHandler";
+import { permissionMiddleware } from "../middlewares/permission.m";
 const router = express.Router();
 
 /**
@@ -32,7 +33,7 @@ const router = express.Router();
  *       201:
  *         description: Document created successfully
  */
-router.post("/", [authenticate, upload.single("file")], uploadDocument);
+router.post("/", [authenticate, permissionMiddleware(["create"]), upload.single("file")], uploadDocument);
 
 /**
  * @swagger
@@ -56,7 +57,7 @@ router.post("/", [authenticate, upload.single("file")], uploadDocument);
  *                  updatedAt: string
  *
  * */
-router.get("/", [authenticate], getUserDocuments);
+router.get("/", [authenticate, permissionMiddleware(["read"])], getUserDocuments);
 
 /**
  * @swagger
@@ -79,7 +80,7 @@ router.get("/", [authenticate], getUserDocuments);
  *       500:
  *         description: Error deleting file
  */
-router.delete("/:documentId", [authenticate], deleteDocument);
+router.delete("/:documentId", [authenticate, permissionMiddleware(["delete"])], deleteDocument);
 
 // /**
 //  * @swagger
@@ -130,6 +131,6 @@ router.delete("/:documentId", [authenticate], deleteDocument);
  *       200:
  *         description: Document updated successfully
  */
-router.put("/:documentId", [authenticate, upload.single("file")], updateDocument);
+router.put("/:documentId", [authenticate, permissionMiddleware(["update"]), upload.single("file")], updateDocument);
 
 export { router as documentRoutes };
