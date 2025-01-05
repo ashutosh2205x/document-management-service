@@ -54,7 +54,9 @@ router.post("/update-role", [authenticate, isAdmin], updateUserRole);
  *               userId:
  *                 type: number
  *               permissions:
- *                 type: string[]
+ *                 type: array
+ *                  items:
+ *                      permission: string
  *     responses:
  *       201:
  *         message: permissions updated succesfully
