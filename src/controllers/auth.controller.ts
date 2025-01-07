@@ -4,18 +4,32 @@ import jwt from "jsonwebtoken";
 import { BlacklistedTokens, User } from "../models/user.model";
 import { catchAsync } from "../utils/catchAsync";
 import { IUserSchema } from "../utils/schema-validator/user.schema";
+import { addEmailToFilter, isEmailInFilter } from "../utils/bloomFilterInstance";
 
 export const signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { email, password, role } = req.body;
+  if (isEmailInFilter(email)) {
+    // Perform database check to avoid false positives
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+  }
   const hashedPassword = await bcrypt.hash(password, 10);
- await User.create({ email, password: hashedPassword, role: role || "viewer" });
-  res.status(201).json({ email: email, message: "user created succesfully" });
+  await User.create({ email, password: hashedPassword, role: role || "viewer" });
+  addEmailToFilter(email);
+  res.status(201).json({ email: email, message: "User created succesfully" });
 });
 
 export const login = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
   IUserSchema.parse(req.body);
+  if (!isEmailInFilter(email)) {
+    // check in filter if the email exists or not, reject immediately
+    return res.status(400).json({ message: "invalid email or password" });
+  }
   const isUser = await User.findOne({ where: { email: email } });
+
   if (!isUser || !isUser?.dataValues) {
     return res.status(401).json({
       success: false,
