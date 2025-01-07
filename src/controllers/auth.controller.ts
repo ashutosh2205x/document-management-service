@@ -16,7 +16,7 @@ export const signup = catchAsync(async (req: Request, res: Response, next: NextF
     }
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  await User.create({ email, password: hashedPassword, role: role || "viewer" });
+  await User.create({ email, password: hashedPassword, role: role || "viewer", permissions: role ? (role === "admin" ? "create,read,update,delete" : "read") : "read" });
   addEmailToFilter(email);
   res.status(201).json({ email: email, message: "User created succesfully" });
 });

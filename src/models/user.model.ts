@@ -21,7 +21,7 @@ export const User = sequelize.define("User", {
     defaultValue: "viewer",
   },
   permissions: {
-    type: DataTypes.ENUM("create, read, update, delete"),
+    type: DataTypes.STRING,
     defaultValue: "read",
   },
 });

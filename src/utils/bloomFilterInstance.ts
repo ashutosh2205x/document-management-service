@@ -5,9 +5,11 @@ const bloomFilter = new BloomFilter(10000, 3);
 
 export const populateBloomFilter = async () => {
   const users = await User.findAll({ attributes: ["email"] });
-  users.forEach((user) => {
-    bloomFilter.add(user.dataValues.email);
-  });
+  if (users && users.length > 0) {
+    users.forEach((user) => {
+      bloomFilter.add(user.dataValues.email);
+    });
+  }
 };
 
 export const isEmailInFilter = (email: string): boolean => bloomFilter.has(email);

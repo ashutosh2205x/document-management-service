@@ -45,16 +45,20 @@ app.use("/api/ingestion", ingestionRoutes);
 
 app.use("/api", metricsRoutes);
 
-populateBloomFilter()
-  .then(() => console.log("Bloom filter populated with existing emails"))
-  .catch((error) => console.error("Error populating Bloom filter:", error));
+
 
 setupSwagger(app);
 app.use(globalErrorHandler);
 
 sequelize.sync().then(async () => {
   console.log("DB connected...");
+  populateBloomFilter()
+  .then(() => console.log("Bloom filter populated with existing emails"))
+  .catch((error) => console.error("Error populating Bloom filter:", error));
   app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT}`);
   });
+}).catch(e=>{
+  console.log("error while connecting to DB..", e);
+  process.exit()
 });

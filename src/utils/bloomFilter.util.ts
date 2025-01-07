@@ -10,7 +10,6 @@ class BloomFilter {
   }
 
   add(item: string): void {
-    console.log("adding item", item);
     this.hashFunctions.forEach((hashFunction) => {
       const index = hashFunction(item) % this.size;
       this.bitArray[index] = 1;
