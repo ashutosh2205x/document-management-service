@@ -1,4 +1,18 @@
-class BloomFilter {
+import { Request, Response, NextFunction } from "express";
+import { User } from "../models/user.model";
+import { z } from "zod";
+
+export const ROLES = ["admin", "editor", "viewer"];
+
+export const PERMISSIONS = ["create", "read", "update", "delete"];
+
+export const catchAsync = (fn: Function) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    fn(req, res, next).catch(next);
+  };
+};
+
+export class BloomFilter {
   private size: number;
   private bitArray: number[];
   private hashFunctions: ((item: string) => number)[];
@@ -40,4 +54,19 @@ class BloomFilter {
   }
 }
 
-export default BloomFilter;
+const bloomFilter = new BloomFilter(10000, 3);
+
+export const populateBloomFilter = async () => {
+  const users = await User.findAll({ attributes: ["email"] });
+  users.forEach((user) => {
+    bloomFilter.add(user.dataValues.email);
+  });
+};
+
+export const isEmailInFilter = (email: string): boolean => bloomFilter.has(email);
+export const addEmailToFilter = (email: string): void => bloomFilter.add(email);
+
+export const IUserSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});

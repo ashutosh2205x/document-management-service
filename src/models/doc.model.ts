@@ -1,5 +1,5 @@
 import sequelize from "../configs/db";
-import { User } from "./user.model";
+import { User } from "../../auth-service/src/models/user.model";
 import { DataTypes } from "sequelize";
 
 export const Document = sequelize.define("documents", {

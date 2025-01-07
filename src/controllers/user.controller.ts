@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { catchAsync } from "../utils/catchAsync";
-import { User } from "../models/user.model";
+import { User } from "../../auth-service/src/models/user.model";
 import { PERMISSIONS, ROLES } from "../utils/const";
 import { checkPermissions, rolePermissionsMap, sanitizeArrayElements } from "../utils/util";
 

@@ -1,10 +1,8 @@
-import bcrypt from "bcryptjs";
 import { NextFunction, Request, Response } from "express";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { BlacklistedTokens, User } from "../models/user.model";
-import { catchAsync } from "../utils/catchAsync";
-import { IUserSchema } from "../utils/schema-validator/user.schema";
-import { addEmailToFilter, isEmailInFilter } from "../utils/bloomFilterInstance";
+import { IUserSchema, addEmailToFilter, catchAsync, isEmailInFilter } from "../utils/utilities";
 
 export const signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { email, password, role } = req.body;
