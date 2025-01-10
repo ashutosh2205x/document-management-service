@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { Document } from "../models/doc.model";
-import { catchAsync } from "../utils/catchAsync";
-import { documentSchema } from "../utils/schema-validator/doc.schema";
+import { Document } from "../../../src/models/doc.model";
+import { catchAsync } from "../../../src/utils/catchAsync";
+import { documentSchema } from "../../../src/utils/schema-validator/doc.schema";
 import path from "path";
 import fs from "fs";
 

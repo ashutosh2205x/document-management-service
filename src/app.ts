@@ -8,8 +8,7 @@ import globalErrorHandler from "./controllers/error.controller";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 
-import { authRoutes } from "../auth-service/src/routes/auth.routes";
-import { documentRoutes } from "./routes/document.routes";
+import { documentRoutes } from "../document-service/src/routes/document.routes";
 import { userRoutes } from "./routes/user.routes";
 import { ingestionRoutes } from "./routes/ingestion.routes";
 import { setupSwagger } from "./configs/swagger";
@@ -36,11 +35,11 @@ const limiter = rateLimit({
   message: "Too many requests, please try again in after 1 minute!",
 });
 
-app.use("/api", limiter);
-app.use("/api/auth", authRoutes);
-app.use("/api/documents", documentRoutes);
-app.use("/api/user", userRoutes);
-app.use("/api/ingestion", ingestionRoutes);
+// app.use("/api", limiter);
+// app.use("/api/auth", authRoutes);
+// app.use("/api/documents", documentRoutes);
+// app.use("/api/user", userRoutes);
+// app.use("/api/ingestion", ingestionRoutes);
 
 app.use("/api", metricsRoutes);
 

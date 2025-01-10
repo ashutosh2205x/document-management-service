@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { IUser } from "../types/user.type";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { BlacklistedTokens } from "../../auth-service/src/models/user.model";
+import { IUser } from "../utils/user.type";
+import { BlacklistedTokens } from "../../../shared/models/blacklistedTokens.model";
 require("dotenv").config();
 
 declare global {

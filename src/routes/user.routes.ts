@@ -1,6 +1,6 @@
 import express from "express";
 import { updateUserPermissions, updateUserRole } from "../controllers/user.controller";
-import { authenticate } from "../middlewares/auth.m";
+import { authenticate } from "../../document-service/src/middlewares/auth.m";
 import { isAdmin } from "../middlewares/admin.m";
 
 const router = express.Router();

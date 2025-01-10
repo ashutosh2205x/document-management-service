@@ -1,0 +1,14 @@
+version: '1.0'
+services:
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "3000:3000"
+  document-service:
+    build: ./document-service
+    ports:
+      - "3001:3001"
+  ingestion-service:
+    build: ./ingestion-service
+    ports:
+      - "3002:3002"

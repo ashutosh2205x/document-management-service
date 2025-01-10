@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../configs/db";
-import { User } from "../../auth-service/src/models/user.model";
+import { User } from "../../shared/models/user.model";
 
 export const Ingestion = sequelize.define("ingestion", {
   id: {

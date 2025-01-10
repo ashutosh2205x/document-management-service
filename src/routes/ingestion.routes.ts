@@ -1,5 +1,5 @@
 import express from "express";
-import { authenticate } from "../middlewares/auth.m";
+import { authenticate } from "../../document-service/src/middlewares/auth.m";
 import { getIngestionStatus, triggerIngestion } from "../controllers/ingestion.controller";
 
 const router = express.Router();

@@ -1,6 +1,5 @@
-import sequelize from "../configs/db";
-import { User } from "../../auth-service/src/models/user.model";
 import { DataTypes } from "sequelize";
+import sequelize from "../configs/db";
 
 export const Document = sequelize.define("documents", {
   id: {
@@ -20,8 +19,4 @@ export const Document = sequelize.define("documents", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
 });
-
-Document.belongsTo(User, { foreignKey: "id" });
-User.hasMany(Document, { foreignKey: "id" });

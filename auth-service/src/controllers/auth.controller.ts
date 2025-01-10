@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { BlacklistedTokens, User } from "../models/user.model";
-import { IUserSchema, addEmailToFilter, catchAsync, isEmailInFilter } from "../utils/utilities";
+import { IUserSchema, addEmailToFilter, isEmailInFilter } from "../utils/utilities";
+import { User, BlacklistedTokens } from "../../../shared/models/index";
+import { catchAsync } from "../../../shared/utils/catchAsync";
 
 export const signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const { email, password, role } = req.body;

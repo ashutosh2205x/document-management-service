@@ -1,16 +1,9 @@
-import { Request, Response, NextFunction } from "express";
-import { User } from "../models/user.model";
 import { z } from "zod";
+import { User } from "../../../shared/models/user.model";
 
 export const ROLES = ["admin", "editor", "viewer"];
 
 export const PERMISSIONS = ["create", "read", "update", "delete"];
-
-export const catchAsync = (fn: Function) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    fn(req, res, next).catch(next);
-  };
-};
 
 export class BloomFilter {
   private size: number;

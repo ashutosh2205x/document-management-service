@@ -1,5 +1,5 @@
-import sequelize from "../../../src/configs/db";
 import { DataTypes } from "sequelize";
+import sequelize from "../configs/db";
 
 export const User = sequelize.define("User", {
   id: {
@@ -23,12 +23,5 @@ export const User = sequelize.define("User", {
   permissions: {
     type: DataTypes.ENUM("create, read, update, delete"),
     defaultValue: "read",
-  },
-});
-
-export const BlacklistedTokens = sequelize.define("blacklisted_tokens", {
-  token: {
-    type: DataTypes.STRING,
-    allowNull: false,
   },
 });

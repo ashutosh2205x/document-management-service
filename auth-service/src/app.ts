@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
-import sequelize from "./configs/db";
+import sequelize from "../../shared/configs/db";
 import xss from "xss-clean";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";

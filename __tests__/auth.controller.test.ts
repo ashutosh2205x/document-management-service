@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { User } from '../auth-service/src/models/user.model';
+import { User } from '../services/auth-service/src/models/user.model';
 import { app } from '../src/app';
 import bcrypt from 'bcryptjs';
 
